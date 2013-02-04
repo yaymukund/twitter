@@ -18,6 +18,7 @@ end
 group :development do
   gem 'guard'
   gem 'guard-rspec'
+  gem 'rb-fsevent', '~> 0.9.1'
 end
 
 # To use ActiveModel has_secure_password
