@@ -4,8 +4,10 @@ describe UsersController do
 
   def valid_attributes
     Fabricate.attributes_for(:user)
-             .merge(password: 'my_insecure_password')
+             .merge(password: 'my_password')
   end
+
+  let(:user) { Fabricate(:user) }
 
   describe "GET new" do
     it "assigns a new user as @user" do
@@ -30,7 +32,7 @@ describe UsersController do
 
       it "redirects to the created user" do
         post :create, user: valid_attributes
-        response.should redirect_to(User.last)
+        response.should redirect_to(edit_user_path(User.last))
       end
     end
 
@@ -49,5 +51,19 @@ describe UsersController do
         response.should render_template('new')
       end
     end
+  end
+
+  describe 'GET edit' do
+    subject do
+      get :edit, id: user.id
+      response
+    end
+
+    context 'logged in' do
+      before { login_as(user) }
+      it { should render_template('edit') }
+    end
+
+    it { should redirect_to new_session_path }
   end
 end

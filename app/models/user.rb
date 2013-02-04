@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
                    uniqueness: true,
                    format: {with: /[[:alnum:]]+/},
                    allow_blank: false
+
+  def self.authenticate(name, password)
+    find_by_name(name).try(:authenticate, password)
+  end
 end

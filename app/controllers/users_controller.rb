@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
-  # GET /users/1
-  # GET /users/1.json
-  def show
-    @user = User.find(params[:id])
-  end
+  before_filter :require_session, only: [:show, :edit]
 
   # GET /users/new
   # GET /users/new.json
   def new
+    if logged_in?
+
+    end
     @user = User.new
   end
 
@@ -17,10 +16,18 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to edit_user_path(@user), notice: 'User was successfully created.'
     else
       render :new
     end
+  end
+
+  def edit
+    unless logged_in?
+      redirect_to new_session_path
+    end
+
+    @user = current_user
   end
 
   private
