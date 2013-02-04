@@ -7,7 +7,10 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true,
                    uniqueness: true,
-                   format: {with: /[[:alnum:]]+/},
+                   format: {
+                     with: /^[[:alnum:]]+$/,
+                     message: 'Only letters and numbers allowed.'
+                   },
                    allow_blank: false
 
   def self.authenticate(name, password)

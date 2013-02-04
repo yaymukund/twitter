@@ -2,68 +2,94 @@ require 'spec_helper'
 
 describe UsersController do
 
-  def valid_attributes
-    Fabricate.attributes_for(:user)
-             .merge(password: 'my_password')
-  end
-
   let(:user) { Fabricate(:user) }
 
-  describe "GET new" do
-    it "assigns a new user as @user" do
-      get :new
-      assigns(:user).should be_a_new(User)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new User" do
-        expect {
-          post :create, user: valid_attributes
-        }.to change(User, :count).by(1)
-      end
-
-      it "assigns a newly created user as @user" do
-        post :create, user: valid_attributes
-        assigns(:user).should be_a(User)
-        assigns(:user).should be_persisted
-      end
-
-      it "redirects to the created user" do
-        post :create, user: valid_attributes
-        response.should redirect_to(edit_user_path(User.last))
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved user as @user" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        User.any_instance.stub(:save).and_return(false)
-        post :create, user: {name: 'invalid value'}
-        assigns(:user).should be_a_new(User)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        User.any_instance.stub(:save).and_return(false)
-        post :create, user: {name: 'invalid value'}
-        response.should render_template('new')
-      end
-    end
-  end
-
-  describe 'GET edit' do
+  describe 'POST /user' do
     subject do
-      get :edit, id: user.id
+      post :create, user: {name: name, password: password}
       response
     end
 
-    context 'logged in' do
-      before { login_as(user) }
-      it { should render_template('edit') }
+    let(:valid) { Fabricate.attributes_for(:user) }
+    let(:name) { valid[:name] }
+    let(:password) { valid[:password] }
+
+    it 'creates the user' do
+      expect { subject }.to change { User.count }.by(1)
     end
 
-    it { should redirect_to new_session_path }
+    it { should redirect_to edit_user_path }
+
+    context 'with invalid attributes' do
+      let(:name) { 'invalid name@&$' }
+
+      it 'doesn\'t create the user' do
+        expect { subject }.to_not change { User.count }
+      end
+    end
+  end
+
+  describe 'GET /user/new' do
+    subject do
+      get :new
+      response
+    end
+
+    it { should render_template('new') }
+  end
+
+  describe 'GET /user/edit' do
+    before { login_as(user) }
+
+    subject do
+      get :edit
+      response
+    end
+
+    it_behaves_like 'an authed action'
+
+    it 'renders the edit form for the current user' do
+      subject
+      response.should render_template('edit')
+      assigns(:user).should == user
+    end
+  end
+
+  describe 'PUT /user' do
+    let(:name) { 'newname' }
+    let(:password) { 'newpass' }
+
+    before { login_as(user) }
+
+    subject do
+      put :update, user: {name: name, password: password}
+      response
+    end
+
+    it_behaves_like 'an authed action'
+
+    it 'redirects to the edit form' do
+      subject
+      response.should redirect_to edit_user_path
+    end
+
+    it 'updates the attributes' do
+      expect { subject }.to change { user.reload.attributes }
+    end
+
+    it 'lets the user authenticate with the new password' do
+      subject
+      User.authenticate(name, password).should == user
+    end
+
+    context 'with invalid attributes' do
+      let(:name) { 'invalid username&!@' }
+
+      it 'rerenders the edit form with errors' do
+        subject
+        response.should render_template('edit')
+        assigns(:user).should_not be_valid
+      end
+    end
   end
 end
