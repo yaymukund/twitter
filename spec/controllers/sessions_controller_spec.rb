@@ -24,7 +24,7 @@ describe SessionsController do
 
       it 'succeeds and logs in the user' do
         subject.should redirect_to root_path
-        session[:current_user_id].should == user.id
+        current_user.should == user
       end
     end
 
@@ -34,7 +34,7 @@ describe SessionsController do
 
       it 'fails and rerenders the login form' do
         subject.should render_template('new')
-        session[:current_user_id].should be_blank
+        current_user.should be_blank
       end
     end
   end
@@ -48,5 +48,4 @@ describe SessionsController do
       response.should redirect_to new_session_path
     end
   end
-
 end

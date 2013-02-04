@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       session[:current_user_id] = user.id
       redirect_to root_path
     else
-      render :new, notice: 'Wrong username/password combination.'
+      render :new, locals: {notice: 'Wrong username/password combination.'}
     end
   end
 
