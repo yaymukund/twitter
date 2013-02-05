@@ -15,7 +15,7 @@ Twitter::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Required by Heroku, or else it'll complain about errors: http://stackoverflow.com/a/11286168
   config.assets.initialize_on_precompile = false
