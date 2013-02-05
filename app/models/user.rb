@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
+  has_many :tweets
 
   attr_accessible :name,
                   :password_digest,
@@ -18,5 +19,9 @@ class User < ActiveRecord::Base
 
   def self.authenticate(name, password)
     find_by_name(name).try(:authenticate, password)
+  end
+
+  def to_s
+    name
   end
 end

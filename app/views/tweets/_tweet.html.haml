@@ -1,6 +1,8 @@
 .row
   .tweet.span8
-    %strong.author= "#{tweet.user.name} says:"
+    %strong.author
+      = link_to tweet.user, timeline_path(tweet.user.name)
+      says:
     %p.content= tweet.content
 
     .details

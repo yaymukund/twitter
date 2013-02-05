@@ -13,5 +13,13 @@ describe UsersController do
     it "routes to #edit" do
       get("/user/edit").should route_to('users#edit')
     end
+
+    it 'routes to #show' do
+      get('/users/yaymukund').should route_to(
+        controller: 'users',
+        action: 'show',
+        id: 'yaymukund'
+      )
+    end
   end
 end

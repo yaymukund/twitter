@@ -38,6 +38,22 @@ describe UsersController do
     it { should render_template('new') }
   end
 
+  describe 'GET /user/:id' do
+    subject do
+      get :show, id: user.name
+      response
+    end
+
+    let(:tweets) { (1..5).map { Fabricate(:tweet, user: user) }}
+
+    it 'displays the last n tweets' do
+      tweets # Force the lazy block to run and fabricate tweets.
+      subject
+      assigns(:tweets).should include(*tweets)
+      response.should render_template('show')
+    end
+  end
+
   describe 'GET /user/edit' do
     before { login_as(user) }
 
