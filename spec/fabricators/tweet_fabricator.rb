@@ -1,4 +1,11 @@
 Fabricator(:tweet) do
-  content 'I build a Rails app today!'
+  EXAMPLES = [
+    "Roses are red.",
+    "Violets are red.",
+    "Bushes are red.",
+    "My garden's on fire."
+  ]
+
+  content { sequence(:content) { |i| EXAMPLES[i % EXAMPLES.count] }}
   user
 end
