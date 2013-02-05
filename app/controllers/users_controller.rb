@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(create_params)
 
     if @user.save
       redirect_to edit_user_path, notice: 'User was successfully created.'
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
 
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(update_params)
       redirect_to edit_user_path, notice: 'Your settings have been updated.'
     else
       render :edit
@@ -32,7 +32,11 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
+  def update_params
+    params.require(:user).permit(:password)
+  end
+
+  def create_params
     params.require(:user).permit(:name, :password)
   end
 

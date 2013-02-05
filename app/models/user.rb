@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
                   :password_digest,
                   :password
 
+  validates :password_digest, presence: true, allow_blank: false
+  validates :password, presence: true
+
   validates :name, presence: true,
                    uniqueness: true,
                    format: {
