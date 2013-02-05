@@ -4,5 +4,5 @@ class Tweet < ActiveRecord::Base
 
   validates :user, presence: true
   validates :content, presence: true,
-                      length: {in: 1...160}
+                      length: {in: 1..160}
 end
