@@ -11,13 +11,15 @@ class TweetsController < ApplicationController
     @tweet.user = current_user
 
     if @tweet.save
-      redirect_to @tweet, notice: 'Tweet was successfully posted.'
+      flash[:notice] = 'Your tweet has been successfully published!'
+      redirect_to @tweet
     else
       render :new
     end
   end
 
   def destroy
+    flash[:alert] = 'Your tweet has been deleted.'
     redirect_to new_tweet_path
   end
 

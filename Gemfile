@@ -3,6 +3,8 @@ ruby '1.9.3'
 
 gem 'rails', '3.2.11'
 gem 'strong_parameters'
+gem 'haml'
+gem 'bootstrap-sass', '~> 2.2.2.0'
 
 group :production do
   gem 'pg'
@@ -13,9 +15,6 @@ group :assets do
   gem 'haml-rails', '~> 0.3'
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'haml'
-gem 'bootstrap-sass', '~> 2.2.2.0'
 
 group :test, :development do
   gem 'sqlite3'

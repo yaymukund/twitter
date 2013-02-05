@@ -2,9 +2,16 @@
   .tweet.span8
     %strong.author= "#{tweet.user.name} says:"
     %p.content= tweet.content
-    %small.timestamp
-      = "#{time_ago_in_words(tweet.created_at)} ago"
-      = link_to tweet, class: 'permalink btn btn-link btn-mini' do
+
+    .details
+      %small.timestamp.pull-left
+        = "#{time_ago_in_words(tweet.created_at)} ago"
+
+      - if tweet.user == current_user
+        = button_to 'Delete', tweet_path(tweet, method: :delete), class: 'btn btn-danger btn-mini pull-left'
+
+      = link_to tweet, class: 'permalink btn btn-link btn-mini pull-left' do
         permalink
         %i.icon-chevron-right
 
+    .clearfix

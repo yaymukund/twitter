@@ -1,8 +1,5 @@
-- if flash[:notice]
-  .alert.alert-success.alert-block= flash[:notice]
+- if flash[:notice] || local_assigns[:notice]
+  .alert.alert-success= flash[:notice] || local_assigns[:notice]
 
-- if flash[:warning]
-  .alert.alert-block= flash[:warning]
-
-- if flash[:error]
-  .alert.alert-error.alert-block= flash[:error]
+- if flash[:alert] || local_assigns[:alert]
+  .alert.alert-error= flash[:alert] || local_assigns[:alert]

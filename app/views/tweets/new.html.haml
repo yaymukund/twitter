@@ -1,3 +1,4 @@
-%h3 Post a new tweet
+= render 'form', tweet: @tweet
 
-= render 'form'
+- content_for :sidebar do
+  %p The maximum length for a tweet is 140 characters.

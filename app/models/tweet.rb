@@ -3,6 +3,5 @@ class Tweet < ActiveRecord::Base
   attr_accessible :content
 
   validates :user, presence: true
-  validates :content, presence: true,
-                      length: {in: 1..160}
+  validates :content, length: {in: 1..160}
 end

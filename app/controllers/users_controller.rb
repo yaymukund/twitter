@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     @user = User.new(create_params)
 
     if @user.save
-      redirect_to edit_user_path, notice: 'User was successfully created.'
+      flash[:notice] = 'User was successfully created.'
+      redirect_to edit_user_path
     else
       render :new
     end
@@ -26,7 +27,8 @@ class UsersController < ApplicationController
     @user = current_user
 
     if @user.update_attributes(update_params)
-      redirect_to edit_user_path, notice: 'Your settings have been updated.'
+      flash[:notice] = 'Your settings have been updated.'
+      redirect_to edit_user_path
     else
       render :edit
     end
