@@ -1,8 +1,12 @@
 source :rubygems
+ruby '1.9.3'
 
 gem 'rails', '3.2.11'
-gem 'sqlite3'
 gem 'strong_parameters'
+
+group :production do
+  gem 'pg'
+end
 
 group :assets do
   gem 'sass-rails', '~> 3.2.3'
@@ -10,7 +14,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'haml'
+
 group :test, :development do
+  gem 'sqlite3'
   gem 'rspec-rails', '~> 2.0'
   gem 'fabrication', '~> 2.5'
 end
