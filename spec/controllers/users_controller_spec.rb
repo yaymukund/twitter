@@ -56,13 +56,12 @@ describe UsersController do
   end
 
   describe 'PUT /user' do
-    let(:name) { 'newname' }
     let(:password) { 'newpass' }
 
     before { login_as(user) }
 
     subject do
-      put :update, user: {name: name, password: password}
+      put :update, user: {password: password}
       response
     end
 
@@ -74,16 +73,16 @@ describe UsersController do
     end
 
     it 'updates the attributes' do
-      expect { subject }.to change { user.reload.attributes }
+      expect { subject }.to change { user.reload.password_digest }
     end
 
     it 'lets the user authenticate with the new password' do
       subject
-      User.authenticate(name, password).should == user
+      User.authenticate(user.name, password).should == user
     end
 
     context 'with invalid attributes' do
-      let(:name) { 'invalid username&!@' }
+      let(:password) { '' }
 
       it 'rerenders the edit form with errors' do
         subject
