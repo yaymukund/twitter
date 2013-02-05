@@ -6,4 +6,10 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
 
+= render partial: 'shared/header'
+
+%h1 Twitter
+
 = yield
+
+= render partial: 'shared/footer'

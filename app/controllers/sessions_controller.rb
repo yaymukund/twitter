@@ -1,7 +1,8 @@
 class SessionsController < ApplicationController
   def create
     if logged_in?
-      redirect_to destroy_session_path
+      destroy
+      return
     end
 
     user = User.authenticate(*session_params.values_at(:name, :password))

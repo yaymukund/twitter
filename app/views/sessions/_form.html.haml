@@ -1,0 +1,13 @@
+= form_tag session_path do
+  - if notice
+    %p.error.notice= notice
+
+  %p
+    = label_tag :name
+    = text_field_tag :name, params[:name]
+
+  %p
+    = label_tag :password
+    = password_field_tag :password
+
+  %p.button= submit_tag 'Log in'
