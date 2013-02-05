@@ -1,4 +1,10 @@
-.tweet
-  %p.author= "#{tweet.user.name} says:"
-  %p.content= tweet.content
-  %p.timestamp= "Tweeted #{time_ago_in_words(tweet.created_at)} ago"
+.row
+  .tweet.span8
+    %strong.author= "#{tweet.user.name} says:"
+    %p.content= tweet.content
+    %small.timestamp
+      = "#{time_ago_in_words(tweet.created_at)} ago"
+      = link_to tweet, class: 'permalink btn btn-link btn-mini' do
+        permalink
+        %i.icon-chevron-right
+

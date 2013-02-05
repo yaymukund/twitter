@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_filter :require_session, only: [:show, :edit, :update]
   before_filter :require_sessionless, only: [:new, :create]
 
+  layout 'menuless'
+
   def new
     @user = User.new
   end

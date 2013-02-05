@@ -13,4 +13,6 @@
     = f.label :password
     = f.password_field :password
   .actions
-    = f.submit @user.persisted? ? 'Update' : 'Register'
+    = f.submit 'Create account', class: 'btn btn-primary'
+
+  = link_to 'Login', new_session_path, class: 'btn'

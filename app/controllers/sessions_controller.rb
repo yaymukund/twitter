@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  layout 'menuless'
+
   def create
     if logged_in?
       destroy

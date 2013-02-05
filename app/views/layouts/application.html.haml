@@ -6,10 +6,18 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
 
-= render partial: 'shared/header'
+.container
+  .row
+    #main.span8
+      %h1= link_to 'Twitter', root_path
+      = yield
 
-%h1 Twitter
+    .span4
+      - unless local_assigns[:menuless]
+        = render partial: 'shared/menu'
 
-= yield
+      #sidebar
+        = yield :sidebar
 
-= render partial: 'shared/footer'
+  .span12
+    = render partial: 'shared/footer'

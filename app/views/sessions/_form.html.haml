@@ -10,4 +10,6 @@
     = label_tag :password
     = password_field_tag :password
 
-  %p.button= submit_tag 'Log in'
+  %p= submit_tag 'Log in', class: 'btn btn-primary'
+
+  = link_to 'Create an account', new_user_path, class: 'btn'

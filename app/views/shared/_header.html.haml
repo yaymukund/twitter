@@ -1,7 +1,0 @@
-- if logged_in?
-  %p= "Logged in as #{current_user.name}"
-  %p= button_to 'Logout', session_path(method: :delete)
-
-- else
-  = render 'sessions/form'
-  = link_to 'Create an account', new_user_path
