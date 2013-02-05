@@ -10,9 +10,9 @@ describe UsersController do
       response
     end
 
-    let(:valid) { Fabricate.attributes_for(:user) }
-    let(:name) { valid[:name] }
-    let(:password) { valid[:password] }
+    let(:valid_attributes) { Fabricate.attributes_for(:user) }
+    let(:name) { valid_attributes[:name] }
+    let(:password) { valid_attributes[:password] }
 
     it 'creates the user' do
       expect { subject }.to change { User.count }.by(1)
