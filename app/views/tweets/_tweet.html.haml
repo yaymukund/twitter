@@ -1,3 +1,4 @@
 .tweet
   %p.author= "#{tweet.user.name} says:"
   %p.content= tweet.content
+  %p.timestamp= "Tweeted #{time_ago_in_words(tweet.created_at)} ago"

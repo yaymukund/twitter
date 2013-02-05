@@ -5,9 +5,10 @@ describe TweetsController do
   let(:tweet) { Fabricate(:tweet, user: user) }
 
   describe 'GET /tweets' do
-    before { 5.times { Fabricate(:tweet) } }
+    let(:tweets) { (1..5).map { |i| Fabricate(:tweet, created_at: i.hours.ago) }}
 
     subject do
+      tweets # let() is lazy so we have to trigger it.
       get :index
       response
     end
@@ -16,6 +17,11 @@ describe TweetsController do
       subject
       response.should render_template('index')
       assigns(:tweets).should be_present
+    end
+
+    it 'orders by created_at DESC' do
+      subject
+      assigns(:tweets).should =~ tweets.sort_by(&:created_at).reverse
     end
   end
 
