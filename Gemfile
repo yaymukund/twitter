@@ -5,6 +5,7 @@ gem 'rails', '3.2.11'
 gem 'strong_parameters'
 gem 'haml'
 gem 'bootstrap-sass', '~> 2.2.2.0'
+gem 'kaminari'
 
 group :production do
   gem 'pg'

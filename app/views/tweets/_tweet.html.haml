@@ -1,7 +1,7 @@
 .row
   .tweet.span8
     %h5.author
-      = link_to tweet.user, timeline_path(tweet.user.name)
+      = link_to tweet.user, timeline_path(tweet.user)
       says:
     %p.content= tweet.content
 

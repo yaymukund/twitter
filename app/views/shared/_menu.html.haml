@@ -1,7 +1,7 @@
 #menu
   - if logged_in?
     .btn-group
-      = link_to current_user, '#', class: 'btn btn-primary'
+      = link_to current_user, timeline_path(current_user), class: 'btn btn-primary'
       = link_to '#', data: {toggle: 'dropdown'}, class: 'btn btn-primary dropdown-toggle' do
         %span.caret
 

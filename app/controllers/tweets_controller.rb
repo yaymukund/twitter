@@ -29,7 +29,7 @@ class TweetsController < ApplicationController
   end
 
   def index
-    @tweets = Tweet.order('created_at DESC').limit(10)
+    @tweets = Tweet.order('created_at DESC').page params[:page]
   end
 
   private

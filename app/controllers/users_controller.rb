@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       not_found
     end
 
-    @tweets = @user.tweets.order('created_at DESC').limit(10)
+    @tweets = @user.tweets.order('created_at DESC').page params[:page]
   end
 
   private
