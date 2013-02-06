@@ -25,6 +25,24 @@ describe Tweet do
       its(:mentioned_users) { should include(user) }
     end
 
+    context 'with invalid characters after the username' do
+      let(:content) { "Hi *%$. @#{user}%$#* 8($&# how are you" }
+      its(:mentioned_users) { should include(user) }
+    end
+
+    context 'with numbers in the username' do
+      let(:user) { Fabricate(:user, name: 'user1234') }
+      let(:content) { "Hi *%$. @#{user} this works too!" }
+      its(:mentioned_users) { should include(user) }
+    end
+
+    # Failure cases
+
+    context 'with invalid characters before the username' do
+      let(:content) { "Hi *%$.@#{user} 8($&# how are you" }
+      its(:mentioned_users) { should_not include(user) }
+    end
+
     context 'with an invalid username' do
       let(:content) { "Hello imaginary @fake_user" }
       its(:mentioned_users) { should be_empty }

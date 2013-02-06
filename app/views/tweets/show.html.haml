@@ -9,4 +9,4 @@
     %ul.unstyled
       - @tweet.mentioned_users.each do |user|
         %li
-          = link_to user, nil, class: 'btn btn-link'
+          = link_to user, timeline_path(user), class: 'btn btn-link'
