@@ -1,3 +1,4 @@
 %h4= "#{@user}'s timeline"
 
 = render @tweets || "#{@user} has no tweets yet."
+= paginate @tweets
