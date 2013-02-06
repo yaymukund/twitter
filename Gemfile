@@ -9,6 +9,7 @@ gem 'kaminari'
 gem 'jquery-rails', '~> 2.1'
 
 group :production do
+  gem 'thin'
   gem 'pg'
 end
 
