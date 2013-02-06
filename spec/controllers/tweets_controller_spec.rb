@@ -35,7 +35,11 @@ describe TweetsController do
 
     before { login_as(user) }
 
-    it { should render_template('new') }
+    it 'renders a form for a new tweet' do
+      subject
+      response.should render_template('new')
+      assigns(:tweet).should be_a_new(Tweet)
+    end
   end
 
   describe 'POST /tweets' do
@@ -58,7 +62,7 @@ describe TweetsController do
     end
 
     context 'with invalid attributes' do
-      let(:content) { 'Too long' * 160 }
+      let(:content) { 'Too long' * 140 }
 
       it 'does not create the tweet' do
         expect { subject }.to_not change { Tweet.count }
@@ -85,6 +89,12 @@ describe TweetsController do
     subject do
       delete :destroy, id: tweet
       response
+    end
+
+    before { login_as(user) }
+
+    it 'destroys the tweet correctly' do
+      expect { subject }.to change { Tweet.exists?(tweet) }.from(true).to(false)
     end
 
     it_behaves_like 'an authed action'

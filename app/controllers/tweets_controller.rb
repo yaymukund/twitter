@@ -19,8 +19,13 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    flash[:alert] = 'Your tweet has been deleted.'
-    redirect_to new_tweet_path
+    if @tweet.destroy
+      flash[:alert] = 'Your tweet has been deleted.'
+      redirect_to timeline_path(current_user)
+    else
+      flash[:error] = 'Error deleting your tweet.'
+      render 'show'
+    end
   end
 
   def index

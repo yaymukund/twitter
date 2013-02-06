@@ -1,6 +1,6 @@
 .row
   .tweet.span8
-    %strong.author
+    %h5.author
       = link_to tweet.user, timeline_path(tweet.user.name)
       says:
     %p.content= tweet.content
@@ -10,7 +10,7 @@
         = "#{time_ago_in_words(tweet.created_at)} ago"
 
       - if tweet.user == current_user
-        = button_to 'Delete', tweet_path(tweet, method: :delete), class: 'btn btn-danger btn-mini pull-left'
+        = button_to 'Delete', tweet_path(tweet), method: :delete, class: 'btn btn-danger btn-mini pull-left'
 
       = link_to tweet, class: 'permalink btn btn-link btn-mini pull-left' do
         permalink

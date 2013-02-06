@@ -1,1 +1,12 @@
 = render @tweet
+
+- if @tweet.mentions.any?
+  .mentions
+    %h5
+      %i.icon-user
+      This tweet mentioned:
+
+    %ul.unstyled
+      - @tweet.mentioned_users.each do |user|
+        %li
+          = link_to user, nil, class: 'btn btn-link'
