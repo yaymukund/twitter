@@ -1,0 +1,5 @@
+.mentioned-tweets
+  %h4
+    Your mentions
+    = link_to '(See all)', mentions_user_path, class: 'btn btn-link'
+  = render mentions || 'It looks like you don\'t have any mentions yet.'

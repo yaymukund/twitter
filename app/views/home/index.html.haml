@@ -1,1 +1,4 @@
+- if @mentions.present?
+  = render partial: 'tweets/mentions', object: @mentions
+
 = render template: 'tweets/index'

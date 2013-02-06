@@ -107,4 +107,32 @@ describe UsersController do
       end
     end
   end
+
+  describe 'GET /user/mentions' do
+    subject do
+      get :mentions
+      response
+    end
+
+    it_behaves_like 'an authed action'
+
+    before { login_as(user) }
+
+    it 'renders the mentions page with some @mentions' do
+      subject
+      response.should render_template('mentions')
+      assigns(:mentions).should_not be_nil
+    end
+
+    context 'with some mentions' do
+      let(:mentions) { (1..5).map { Fabricate(:mention, user: user) }}
+      let(:received_tweets) { mentions.map(&:tweet) }
+
+      it 'displays those mentions' do
+        mentions # Force the lazy mentions to get fabricated.
+        subject
+        assigns(:mentions).should include(*received_tweets)
+      end
+    end
+  end
 end

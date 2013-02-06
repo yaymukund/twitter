@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
   has_many :tweets
+  has_many :mentions
+  has_many :received_tweets, through: :mentions, source: :tweet
 
   attr_accessible :name,
                   :password_digest,

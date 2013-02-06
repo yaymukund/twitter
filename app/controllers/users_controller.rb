@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :require_session, only: [:edit, :update]
+  before_filter :require_session, only: [:edit, :update, :mentions]
   before_filter :require_sessionless, only: [:new, :create]
 
   layout 'menuless', only: :new
@@ -42,6 +42,10 @@ class UsersController < ApplicationController
     end
 
     @tweets = @user.tweets.order('created_at DESC').page params[:page]
+  end
+
+  def mentions
+    @mentions = current_user.received_tweets.page params[:page]
   end
 
   private
